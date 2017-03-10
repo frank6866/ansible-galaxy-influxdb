@@ -1,0 +1,17 @@
+---
+
+- name: install influxdb related packages
+  yum: name={{ item }} state=present
+  with_items:
+    - influxdb
+
+#- name: template /etc/influxdb/influxdb.ini
+#  template: src=etc/influxdb/influxdb.ini.j2
+#            dest=/etc/influxdb/influxdb.ini
+#            mode=644 backup=yes
+#  notify: restart influxdb
+
+- name: start and enable influxdb
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+    - influxdb
