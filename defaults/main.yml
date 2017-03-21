@@ -1,3 +1,5 @@
 ---
 # defaults file for influxdb
 
+influxdb_admin_enabled: "false"
+influxdb_admin_bind_address: ":8083"

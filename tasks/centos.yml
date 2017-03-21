@@ -5,11 +5,11 @@
   with_items:
     - influxdb
 
-#- name: template /etc/influxdb/influxdb.ini
-#  template: src=etc/influxdb/influxdb.ini.j2
-#            dest=/etc/influxdb/influxdb.ini
-#            mode=644 backup=yes
-#  notify: restart influxdb
+- name: template /etc/influxdb/influxdb.conf
+  template: src=etc/influxdb/influxdb.conf.j2
+            dest=/etc/influxdb/influxdb.conf
+            mode=644 backup=yes
+  notify: restart influxdb
 
 - name: start and enable influxdb
   service: name={{ item }} state=started enabled=yes
