@@ -32,7 +32,7 @@ vagrant1 ansible_ssh_host=192.168.168.201 ansible_ssh_port=2222 ansible_ssh_user
 vagrant1
 
 [influxdb:vars]
-influxdb_https_enabled=true
+influxdb_https_enabled="true"
 influxdb_cert_file_path=/tmp/process_csr/influxdb/influxdb.crt
 influxdb_key_file_path=/tmp/process_csr/influxdb/influxdb.key
 influxdb_cacert_file_path=/usr/local/etc/openssl/myCA/cacert.pem
