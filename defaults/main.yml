@@ -1,5 +1,9 @@
 ---
 # defaults file for influxdb
 
-influxdb_admin_enabled: "false"
-influxdb_admin_bind_address: ":8083"
+influxdb_data_dir: "/var/lib/influxdb/data"
+influxdb_wal_dir: "/var/lib/influxdb/wal"
+
+
+
+

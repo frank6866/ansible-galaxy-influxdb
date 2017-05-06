@@ -1,9 +1,16 @@
 ---
 
+- name: copy influxdb yum repo file
+  copy: src=influxdata.repo dest=/etc/yum.repos.d/influxdata.repo
+
 - name: install influxdb related packages
   yum: name={{ item }} state=present
   with_items:
     - influxdb
+
+- name: include https.yml
+  include: https.yml
+  when: influxdb_https_enabled is defined and influxdb_https_enabled == "true"
 
 - name: template /etc/influxdb/influxdb.conf
   template: src=etc/influxdb/influxdb.conf.j2

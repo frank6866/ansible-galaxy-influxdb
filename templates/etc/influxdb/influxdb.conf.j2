@@ -44,10 +44,10 @@
 
 [data]
   # The directory where the TSM storage engine stores TSM files.
-  dir = "/var/lib/influxdb/data"
+  dir = "{{ influxdb_data_dir }}"
 
   # The directory where the TSM storage engine stores WAL files.
-  wal-dir = "/var/lib/influxdb/wal"
+  wal-dir = "{{ influxdb_wal_dir }}"
 
   # Trace logging provides more verbose output around the tsm engine. Turning
   # this on can provide more useful output for debugging tsm engine issues.
@@ -187,14 +187,9 @@
 [admin]
   # Determines whether the admin service is enabled.
   # enabled = false
-  {% if influxdb_admin_enabled=='true' %}
-  enabled = true
-  {% endif %}
+
   # The default bind address used by the admin service.
   # bind-address = ":8083"
-  {% if influxdb_admin_bind_address is defined and influxdb_admin_enabled=='true' %}
-  bind-address = "{{ influxdb_admin_bind_address }}"
-  {% endif %}
 
   # Whether the admin service should use HTTPS.
   # https-enabled = false
@@ -218,6 +213,9 @@
 
   # Determines whether HTTP authentication is enabled.
   # auth-enabled = false
+{% if influxdb_auth_enabled is defined and influxdb_auth_enabled == "true" %}
+    auth-enabled = true
+{% endif %}
 
   # The default realm sent back when issuing a basic auth challenge.
   # realm = "InfluxDB"
@@ -234,12 +232,19 @@
 
   # Determines whether HTTPS is enabled.
   # https-enabled = false
-
+{% if influxdb_https_enabled is defined and influxdb_https_enabled == "true" %}
+    https-enabled = true
+{% endif %}
   # The SSL certificate to use when HTTPS is enabled.
   # https-certificate = "/etc/ssl/influxdb.pem"
-
+{% if influxdb_https_enabled is defined and influxdb_https_enabled == "true" %}
+    https-certificate = "/etc/pki/influxdb/influxdb.crt"
+{% endif %}
   # Use a separate private key location.
   # https-private-key = ""
+{% if influxdb_https_enabled is defined and influxdb_https_enabled == "true" %}
+    https-private-key = "/etc/pki/influxdb/private/influxdb.key"
+{% endif %}
 
   # The JWT auth shared secret to validate requests using JSON web tokens.
   # shared-sercret = ""

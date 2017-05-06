@@ -1,0 +1,16 @@
+---
+
+- name: create directory for cert releated files
+  file: path=/etc/pki/influxdb/private state=directory mode=755
+
+- name: copy cert file to influxdb server
+  copy: src={{ influxdb_cert_file_path }} dest=/etc/pki/influxdb/influxdb.crt
+
+- name: copy key file to influxdb server
+  copy: src={{ influxdb_key_file_path }} dest=/etc/pki/influxdb/private/influxdb.key
+
+- name: copy cacert file to influxdb server
+  copy: src={{ influxdb_cacert_file_path }} dest=/etc/pki/ca-trust/source/anchors/
+
+- name: add cacert into server's trust list
+  shell: update-ca-trust
