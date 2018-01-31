@@ -32,6 +32,9 @@ vagrant1 ansible_ssh_host=192.168.168.201 ansible_ssh_port=2222 ansible_ssh_user
 vagrant1
 
 [influxdb:vars]
+influxdb_data_dir=/var/lib/influxdb/data
+influxdb_wal_dir=/var/lib/influxdb/wal
+
 influxdb_https_enabled="true"
 influxdb_cert_file_path=/tmp/process_csr/influxdb/influxdb.crt
 influxdb_key_file_path=/tmp/process_csr/influxdb/influxdb.key
@@ -59,6 +62,14 @@ The auth of InlfuxDB is not enalbed by default, you can set **influxdb_auth_enab
 
 ```
 influxdb_auth_enabled="true"
+```
+
+create user:
+
+```
+# influx
+> CREATE USER admin WITH PASSWORD 'change_me' WITH ALL PRIVILEGES
+> auth
 ```
 
 

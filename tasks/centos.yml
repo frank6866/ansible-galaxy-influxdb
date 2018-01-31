@@ -18,7 +18,16 @@
             mode=644 backup=yes
   notify: restart influxdb
 
+- name: change owner of data dir
+  file: path={{ influxdb_data_dir }} state=directory owner=influxdb group=influxdb
+
+- name: change owner of wal dir
+  file: path={{ influxdb_wal_dir }} state=directory owner=influxdb group=influxdb
+
 - name: start and enable influxdb
   service: name={{ item }} state=started enabled=yes
   with_items:
     - influxdb
+
+- name: check if influxdb is running
+  shell: systemctl status influxdb | grep running
